@@ -1,0 +1,39 @@
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\MainWindow.baml
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\MainWindow.g.cs
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\App.g.cs
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI-Kinect_MarkupCompile.cache
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI-Kinect.g.resources
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI_Kinect.Properties.Resources.resources
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\GenerateResource.read.1.tlog
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\GenerateResource.write.1.tlog
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\bin\Debug\SIBI-Kinect.exe.config
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\bin\Debug\SIBI-Kinect.exe
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\bin\Debug\SIBI-Kinect.pdb
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\bin\Debug\Kinect.Toolbox.dll
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI-Kinect.exe
+c:\users\ken\documents\visual studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI-Kinect.pdb
+C:\Users\ken\Documents\Visual Studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\bin\Debug\WriteableBitmapEx.Wpf.dll
+C:\Users\ken\Documents\Visual Studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\bin\Debug\WriteableBitmapEx.Wpf.pdb
+C:\Users\ken\Documents\Visual Studio 2010\Projects\SIBI-Kinect\SIBI-Kinect\bin\Debug\WriteableBitmapEx.Wpf.xml
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\bin\Debug\SIBI-Kinect.exe.config
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI-Kinect.exe
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI-Kinect.pdb
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\bin\Debug\SIBI-Kinect.exe
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\bin\Debug\SIBI-Kinect.pdb
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\bin\Debug\Kinect.Toolbox.dll
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\bin\Debug\WriteableBitmapEx.Wpf.dll
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\bin\Debug\WriteableBitmapEx.Wpf.pdb
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\bin\Debug\WriteableBitmapEx.Wpf.xml
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\MainWindow.baml
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\MainWindow.g.cs
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\App.g.cs
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI-Kinect_MarkupCompile.cache
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI-Kinect.g.resources
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI_Kinect.Properties.Resources.resources
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Dropbox\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\Dropbox\Research Assistant\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\bin\Debug\SIBI-Kinect.exe.config
+D:\Dropbox\Research Assistant\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI-Kinect.exe
+D:\Dropbox\Research Assistant\SIBI\VS 2010 Project\SIBI-Kinect\SIBI-Kinect\obj\x86\Debug\SIBI-Kinect.pdb

@@ -1,0 +1,71 @@
+﻿<Window x:Class="SIBI_Kinect.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="709" Width="781" Loaded="WindowLoaded">
+    <Grid Height="656" Width="770">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="186*" />
+            <ColumnDefinition Width="584*" />
+        </Grid.ColumnDefinitions>
+        <Image Height="306" HorizontalAlignment="Left" Margin="160,12,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="452" Grid.ColumnSpan="2" />
+        <Image Height="198" HorizontalAlignment="Left" Margin="303,324,0,0" Name="imageRightHand" Stretch="Fill" VerticalAlignment="Top" Width="237" Grid.Column="1" />
+        <Image Height="198" HorizontalAlignment="Left" Margin="57,324,0,0" Name="imageLeftHand" Stretch="Fill" VerticalAlignment="Top" Width="237" Grid.ColumnSpan="2" />
+        <TextBox Height="23" HorizontalAlignment="Right" Margin="0,427,344,0" Name="stableTextBox" VerticalAlignment="Top" Width="120" Grid.Column="1" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="128,398,0,0" Name="statusBarText" Text="textblock" VerticalAlignment="Top" Width="112" Grid.Column="1" />
+        <Button Content="Not Recording" Height="23" HorizontalAlignment="Left" Margin="128,465,0,0" Name="recordingButton" VerticalAlignment="Top" Width="140" Click="recordingButton_Click" Grid.Column="1" />
+        <TabControl Height="118" HorizontalAlignment="Left" Margin="24,526,0,0" Name="tabControl1" VerticalAlignment="Top" Width="730" Grid.ColumnSpan="2">
+            <TabItem Header="Moving" Name="tabItem1">
+                <Grid Height="82" Width="702">
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="6,30,0,0" Name="gerakanTextbox" VerticalAlignment="Top" Width="162" />
+                    <Label Content="Nama Gerakan" Height="28" HorizontalAlignment="Left" Margin="6,0,0,0" Name="NamaGerakanLabel" VerticalAlignment="Top" Width="120" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="212,30,0,0" Name="MinTresholdtextBox" VerticalAlignment="Top" Width="58" Text="175" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="286,30,0,0" Name="MaxTresholdtextBox" VerticalAlignment="Top" Width="58" Text="25" />
+                    <Label Content="Min-Max Dpth Treshold" Height="28" HorizontalAlignment="Left" Margin="212,2,0,0" Name="label2" VerticalAlignment="Top" Width="139" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="400,30,0,0" Name="jumlahFrameTextBox" VerticalAlignment="Top" Width="25" TextChanged="jumlahFrameTextBox_TextChanged" Text="60" />
+                    <Label Content="Saved Frame" Height="28" HorizontalAlignment="Right" Margin="0,2,144,0" Name="label1" VerticalAlignment="Top" Width="166" />
+                    <Label Content="Label" Height="47" HorizontalAlignment="Left" Margin="601,2,0,0" Name="RightDepthLabel" VerticalAlignment="Top" Width="95" FontSize="24" />
+                    <Label Content="Label" Height="42" HorizontalAlignment="Left" Margin="601,40,0,0" Name="LeftDepthLabel" VerticalAlignment="Top" Width="95" FontSize="24" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Alphabet" Name="tabItem2">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="76*" />
+                        <ColumnDefinition Width="644*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Button" Height="50" HorizontalAlignment="Left" Margin="28,17,0,0" Name="AlphabetButton" VerticalAlignment="Top" Width="80" Click="AlphabetButton_Click" Grid.ColumnSpan="2" />
+                    <Label Content="Label" Height="23" HorizontalAlignment="Right" Margin="0,0,553,19" Name="label3" VerticalAlignment="Bottom" Width="53" Grid.Column="1" />
+                    <Button Content="Simpan gambar" Height="22" HorizontalAlignment="Left" Margin="384,17,0,0" Name="simpanGambarAlphabetButton" VerticalAlignment="Top" Width="206" Grid.Column="1" Click="simpanGambarAlphabetButton_Click" />
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="384,44,0,0" Name="AlphabetNamaTextBox" VerticalAlignment="Top" Width="164" Grid.Column="1" />
+                    <TextBox Height="23" HorizontalAlignment="Right" Margin="0,44,54,0" Name="AlphabetNomorTextBox" VerticalAlignment="Top" Width="36" Text="1" Grid.Column="1" />
+                    <Label Content="Hasil :" Height="28" HorizontalAlignment="Left" Margin="38,17,0,0" Name="label4" VerticalAlignment="Top" Width="53" Grid.Column="1" />
+                    <Button Content="Button" Grid.Column="1" Height="23" HorizontalAlignment="Left" Margin="185,30,0,0" Name="button1" VerticalAlignment="Top" Width="75" Click="button1_Click" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Polar Degree" Name="tabItem3">
+                <Grid>
+                    <Label Content="HeadElbow-YX" Height="28" HorizontalAlignment="Left" Margin="6,6,0,0" Name="label5" VerticalAlignment="Top" />
+                    <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="121,6,0,0" Name="HeadElbowYXLabel" VerticalAlignment="Top" FontSize="16" />
+                    <Label Content="HeadElbow-ZX" Height="28" HorizontalAlignment="Left" Margin="6,40,0,0" Name="label7" VerticalAlignment="Top" />
+                    <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="121,40,0,0" Name="HeadElbowZXLabel" VerticalAlignment="Top" FontSize="16" />
+                    <Label Content="HeadHand-YX" Height="28" HorizontalAlignment="Left" Margin="229,10,0,0" Name="label6" VerticalAlignment="Top" />
+                    <Label Content="HeadHand-ZX" Height="28" HorizontalAlignment="Left" Margin="229,40,0,0" Name="label8" VerticalAlignment="Top" />
+                    <Label Content="Label" Height="28" HorizontalAlignment="Right" Margin="0,6,323,0" Name="HeadHandYXLabel" VerticalAlignment="Top" FontSize="16" />
+                    <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="351,40,0,0" Name="HeadHandZXLabel" VerticalAlignment="Top" FontSize="16" />
+                    <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="460,6,0,0" Name="HandXLabel" VerticalAlignment="Top" />
+                    <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="460,27,0,0" Name="HandYLabel" VerticalAlignment="Top" />
+                    <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="460,48,0,0" Name="HandZLabel" VerticalAlignment="Top" />
+                    <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="545,5,0,0" Name="ShoulderXLabel" VerticalAlignment="Top" />
+                    <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="545,48,0,0" Name="ShoulderZLabel" VerticalAlignment="Top" />
+                    <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="545,27,0,0" Name="ShoulderYLabel" VerticalAlignment="Top" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Matlab" Name="tabItem4">
+                <Grid>
+                    <TextBox Height="23" HorizontalAlignment="Left" Margin="6,6,0,0" Name="textBox1" VerticalAlignment="Top" Width="120" />
+                    <Button Content="HeadGraph" Height="23" HorizontalAlignment="Left" Margin="132,6,0,0" Name="button2" VerticalAlignment="Top" Width="75" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
