@@ -171,15 +171,19 @@ namespace SIBI_Kinect
             if (folderName == "")
                 return;
 
-            string filePath = SIBIPATH + folderName;
+            string filePath = SIBIPATH + frameLength.ToString() + "//" + folderName;
             Directory.CreateDirectory(filePath);
             String upperPointFilePath = Path.Combine(filePath, "Data Polar Upper Point.csv");
             String headPointFilePath = Path.Combine(filePath, "Data Polar Head Point.csv");
 
-            int bitmapNumber = 1;
+            #region Added 17 Feb 2014
+            string fullFilePath = SIBIPATH + "FULL\\" + folderName;
+            Directory.CreateDirectory(fullFilePath);
+            String fullUpperPointFilePath = Path.Combine(fullFilePath, "FULL Data Polar Upper Point.csv");
+            String fullHeadPointFilePath = Path.Combine(fullFilePath, "FULL Data Polar Head Point.csv");
+            #endregion
 
-            StringBuilder upperStringBuilder = new StringBuilder();
-            StringBuilder headStringBuilder = new StringBuilder();
+            int bitmapNumber = 1;
 
             List<string> shoulderElbowLeftYXs = new List<string>();
             List<string> shoulderElbowLeftZXs = new List<string>();
@@ -199,20 +203,35 @@ namespace SIBI_Kinect
             List<string> headHandRightYXs = new List<string>();
             List<string> headHandRightZXs = new List<string>();
 
+            #region Added 17 Feb 2014
+            List<string> shoulderElbowLeftYXsFull = new List<string>();
+            List<string> shoulderElbowLeftZXsFull = new List<string>();
+            List<string> elbowHandLeftYXsFull = new List<string>();
+            List<string> elbowHandLeftZXsFull = new List<string>();
+            List<string> shoulderElbowRightYXsFull = new List<string>();
+            List<string> shoulderElbowRightZXsFull = new List<string>();
+            List<string> elbowHandRightYXsFull = new List<string>();
+            List<string> elbowHandRightZXsFull = new List<string>();
+
+            List<string> headElbowLeftYXsFull = new List<string>();
+            List<string> headElbowLeftZXsFull = new List<string>();
+            List<string> headHandLeftYXsFull = new List<string>();
+            List<string> headHandLeftZXsFull = new List<string>();
+            List<string> headElbowRightYXsFull = new List<string>();
+            List<string> headElbowRightZXsFull = new List<string>();
+            List<string> headHandRightYXsFull = new List<string>();
+            List<string> headHandRightZXsFull = new List<string>();
+            #endregion
+
             double dataCount = (double) wordDataList.Count;
             double skip = dataCount / frameLength;
-            double dataIndex = 0;
-            //skip = len / len_sample;
-            //idx = 1;
-            //for ii=1:skip:len,
-            //res(idx) = input_wave((round(ii)));
-            //idx = idx+1;
-            //end
 
+            double dataIndex = 0;
+            int offset = 0;
             while (Math.Round(dataIndex) < wordDataList.Count)
             {
-                WordDataContainer data = wordDataList[Convert.ToInt32(Math.Floor(dataIndex))];
-                dataIndex += skip;                
+                // WordDataContainer data = wordDataList[Convert.ToInt32(Math.Floor(dataIndex))];
+                WordDataContainer data = wordDataList[offset];
 
                 Joint handLeft = data.skeletonData.Joints[JointType.HandLeft];
                 Joint handRight = data.skeletonData.Joints[JointType.HandRight];
@@ -223,90 +242,180 @@ namespace SIBI_Kinect
                 Joint shoulderCenter = data.skeletonData.Joints[JointType.ShoulderCenter];
                 Joint head = data.skeletonData.Joints[JointType.Head];
 
-                #region UpperPoint
-                SA.get_rad_polar(elbowLeft.Position, shoulderLeft.Position);
-                shoulderElbowLeftYXs.Add(SA.degreeY.ToString());
-                shoulderElbowLeftZXs.Add(SA.degreeZ.ToString());
-
-                SA.get_rad_polar(handLeft.Position, elbowLeft.Position);
-                elbowHandLeftYXs.Add(SA.degreeY.ToString());
-                elbowHandLeftZXs.Add(SA.degreeZ.ToString());
-
-                SA.get_rad_polar(elbowRight.Position, shoulderRight.Position);
-                shoulderElbowRightYXs.Add(SA.degreeY.ToString());
-                shoulderElbowRightZXs.Add(SA.degreeZ.ToString());
-
-                SA.get_rad_polar(handRight.Position, elbowRight.Position);
-                elbowHandRightYXs.Add(SA.degreeY.ToString());
-                elbowHandRightZXs.Add(SA.degreeZ.ToString());
-
-                #endregion
-
-                #region HeadPoint
-                SA.get_rad_polar(elbowLeft.Position, shoulderCenter.Position);
-                headElbowLeftYXs.Add(SA.degreeY.ToString());
-                headElbowLeftZXs.Add(SA.degreeZ.ToString());
-
-                SA.get_rad_polar(handLeft.Position, shoulderCenter.Position);
-                headHandLeftYXs.Add(SA.degreeY.ToString());
-                headHandLeftZXs.Add(SA.degreeZ.ToString());
-
-                SA.get_rad_polar(elbowRight.Position, shoulderCenter.Position);
-                headElbowRightYXs.Add(SA.degreeY.ToString());
-                headElbowRightZXs.Add(SA.degreeZ.ToString());
-
-                SA.get_rad_polar(handRight.Position, shoulderCenter.Position);
-                headHandRightYXs.Add(SA.degreeY.ToString());
-                headHandRightZXs.Add(SA.degreeZ.ToString());       
-                #endregion
-
-                #region Bitmap
-                try
+                // Two ways for saving video frames
+                if (offset == dataIndex) // FIXED WIDTH PARTIAL DATA
                 {
-                    BitmapEncoder bitmapEncoder = new PngBitmapEncoder();
-                    string path;
+                    #region UpperPoint
+                    SA.get_rad_polar(elbowLeft.Position, shoulderLeft.Position);
+                    shoulderElbowLeftYXs.Add(SA.degreeY.ToString());
+                    shoulderElbowLeftZXs.Add(SA.degreeZ.ToString());
 
-                    bitmapEncoder.Frames.Clear();
-                    bitmapEncoder.Frames.Add(BitmapFrame.Create(data.colorLeftBitmapData.SIBIBitmapResize(120, 120)));
-                    path = Path.Combine(filePath, folderName + "-LeftColor-" + bitmapNumber + ".png");
-                    using (FileStream fs = new FileStream(path, FileMode.Create))
-                    {
-                        bitmapEncoder.Save(fs);
-                    }
+                    SA.get_rad_polar(handLeft.Position, elbowLeft.Position);
+                    elbowHandLeftYXs.Add(SA.degreeY.ToString());
+                    elbowHandLeftZXs.Add(SA.degreeZ.ToString());
 
-                    bitmapEncoder = new PngBitmapEncoder();
-                    bitmapEncoder.Frames.Clear();
-                    bitmapEncoder.Frames.Add(BitmapFrame.Create(data.colorRightBitmapData.SIBIBitmapResize(120,120)));
-                    path = Path.Combine(filePath, folderName + "-RightColor-" + bitmapNumber + ".png");
-                    using (FileStream fs = new FileStream(path, FileMode.Create))
-                    {
-                        bitmapEncoder.Save(fs);
-                    }
+                    SA.get_rad_polar(elbowRight.Position, shoulderRight.Position);
+                    shoulderElbowRightYXs.Add(SA.degreeY.ToString());
+                    shoulderElbowRightZXs.Add(SA.degreeZ.ToString());
 
-                    bitmapEncoder = new PngBitmapEncoder();
-                    bitmapEncoder.Frames.Clear(); ;
-                    bitmapEncoder.Frames.Add(BitmapFrame.Create(data.depthLeftBitmapData.SIBIBitmapResize(120, 120)));
-                    path = Path.Combine(filePath, folderName + "-LeftDepth-" + bitmapNumber + ".png");
-                    using (FileStream fs = new FileStream(path, FileMode.Create))
-                    {
-                        bitmapEncoder.Save(fs);
-                    }
+                    SA.get_rad_polar(handRight.Position, elbowRight.Position);
+                    elbowHandRightYXs.Add(SA.degreeY.ToString());
+                    elbowHandRightZXs.Add(SA.degreeZ.ToString());
+                    #endregion
 
-                    bitmapEncoder = new PngBitmapEncoder();
-                    bitmapEncoder.Frames.Clear();
-                    bitmapEncoder.Frames.Add(BitmapFrame.Create(data.depthRightBitmapData.SIBIBitmapResize(120, 120)));
-                    path = Path.Combine(filePath, folderName + "-RightDepth-" + bitmapNumber + ".png");
-                    using (FileStream fs = new FileStream(path, FileMode.Create))
+                    #region HeadPoint
+                    SA.get_rad_polar(elbowLeft.Position, shoulderCenter.Position);
+                    headElbowLeftYXs.Add(SA.degreeY.ToString());
+                    headElbowLeftZXs.Add(SA.degreeZ.ToString());
+
+                    SA.get_rad_polar(handLeft.Position, shoulderCenter.Position);
+                    headHandLeftYXs.Add(SA.degreeY.ToString());
+                    headHandLeftZXs.Add(SA.degreeZ.ToString());
+
+                    SA.get_rad_polar(elbowRight.Position, shoulderCenter.Position);
+                    headElbowRightYXs.Add(SA.degreeY.ToString());
+                    headElbowRightZXs.Add(SA.degreeZ.ToString());
+
+                    SA.get_rad_polar(handRight.Position, shoulderCenter.Position);
+                    headHandRightYXs.Add(SA.degreeY.ToString());
+                    headHandRightZXs.Add(SA.degreeZ.ToString());
+                    #endregion
+
+                    #region Bitmap
+                    try
                     {
-                        bitmapEncoder.Save(fs);
+                        BitmapEncoder bitmapEncoder = new PngBitmapEncoder();
+                        string path;
+
+                        bitmapEncoder.Frames.Clear();
+                        bitmapEncoder.Frames.Add(BitmapFrame.Create(data.colorLeftBitmapData.SIBIBitmapResize(120, 120)));
+                        path = Path.Combine(filePath, folderName + "-LeftColor-" + bitmapNumber + ".png");
+                        using (FileStream fs = new FileStream(path, FileMode.Create))
+                        {
+                            bitmapEncoder.Save(fs);
+                        }
+
+                        bitmapEncoder = new PngBitmapEncoder();
+                        bitmapEncoder.Frames.Clear();
+                        bitmapEncoder.Frames.Add(BitmapFrame.Create(data.colorRightBitmapData.SIBIBitmapResize(120, 120)));
+                        path = Path.Combine(filePath, folderName + "-RightColor-" + bitmapNumber + ".png");
+                        using (FileStream fs = new FileStream(path, FileMode.Create))
+                        {
+                            bitmapEncoder.Save(fs);
+                        }
+
+                        bitmapEncoder = new PngBitmapEncoder();
+                        bitmapEncoder.Frames.Clear(); ;
+                        bitmapEncoder.Frames.Add(BitmapFrame.Create(data.depthLeftBitmapData.SIBIBitmapResize(120, 120)));
+                        path = Path.Combine(filePath, folderName + "-LeftDepth-" + bitmapNumber + ".png");
+                        using (FileStream fs = new FileStream(path, FileMode.Create))
+                        {
+                            bitmapEncoder.Save(fs);
+                        }
+
+                        bitmapEncoder = new PngBitmapEncoder();
+                        bitmapEncoder.Frames.Clear();
+                        bitmapEncoder.Frames.Add(BitmapFrame.Create(data.depthRightBitmapData.SIBIBitmapResize(120, 120)));
+                        path = Path.Combine(filePath, folderName + "-RightDepth-" + bitmapNumber + ".png");
+                        using (FileStream fs = new FileStream(path, FileMode.Create))
+                        {
+                            bitmapEncoder.Save(fs);
+                        }
                     }
+                    catch (IOException e) { Console.WriteLine(e.Message); }
+                    #endregion
                 }
-                catch (IOException e) { Console.WriteLine(e.Message); }
-                #endregion
+                else // FULL FRAME DATA
+                {
+                    #region UpperPoint
+                    SA.get_rad_polar(elbowLeft.Position, shoulderLeft.Position);
+                    shoulderElbowLeftYXsFull.Add(SA.degreeY.ToString());
+                    shoulderElbowLeftZXsFull.Add(SA.degreeZ.ToString());
+
+                    SA.get_rad_polar(handLeft.Position, elbowLeft.Position);
+                    elbowHandLeftYXsFull.Add(SA.degreeY.ToString());
+                    elbowHandLeftZXsFull.Add(SA.degreeZ.ToString());
+
+                    SA.get_rad_polar(elbowRight.Position, shoulderRight.Position);
+                    shoulderElbowRightYXsFull.Add(SA.degreeY.ToString());
+                    shoulderElbowRightZXsFull.Add(SA.degreeZ.ToString());
+
+                    SA.get_rad_polar(handRight.Position, elbowRight.Position);
+                    elbowHandRightYXsFull.Add(SA.degreeY.ToString());
+                    elbowHandRightZXsFull.Add(SA.degreeZ.ToString());
+                    #endregion
+
+                    #region HeadPoint
+                    SA.get_rad_polar(elbowLeft.Position, shoulderCenter.Position);
+                    headElbowLeftYXsFull.Add(SA.degreeY.ToString());
+                    headElbowLeftZXsFull.Add(SA.degreeZ.ToString());
+
+                    SA.get_rad_polar(handLeft.Position, shoulderCenter.Position);
+                    headHandLeftYXsFull.Add(SA.degreeY.ToString());
+                    headHandLeftZXsFull.Add(SA.degreeZ.ToString());
+
+                    SA.get_rad_polar(elbowRight.Position, shoulderCenter.Position);
+                    headElbowRightYXsFull.Add(SA.degreeY.ToString());
+                    headElbowRightZXsFull.Add(SA.degreeZ.ToString());
+
+                    SA.get_rad_polar(handRight.Position, shoulderCenter.Position);
+                    headHandRightYXsFull.Add(SA.degreeY.ToString());
+                    headHandRightZXsFull.Add(SA.degreeZ.ToString());
+                    #endregion
+
+                    #region Bitmap
+                    try
+                    {
+                        BitmapEncoder bitmapEncoder = new PngBitmapEncoder();
+                        string path;
+
+                        bitmapEncoder.Frames.Clear();
+                        bitmapEncoder.Frames.Add(BitmapFrame.Create(data.colorLeftBitmapData.SIBIBitmapResize(120, 120)));
+                        path = Path.Combine(fullFilePath, folderName + "-LeftColor-" + bitmapNumber + ".png");
+                        using (FileStream fs = new FileStream(path, FileMode.Create))
+                        {
+                            bitmapEncoder.Save(fs);
+                        }
+
+                        bitmapEncoder = new PngBitmapEncoder();
+                        bitmapEncoder.Frames.Clear();
+                        bitmapEncoder.Frames.Add(BitmapFrame.Create(data.colorRightBitmapData.SIBIBitmapResize(120, 120)));
+                        path = Path.Combine(fullFilePath, folderName + "-RightColor-" + bitmapNumber + ".png");
+                        using (FileStream fs = new FileStream(path, FileMode.Create))
+                        {
+                            bitmapEncoder.Save(fs);
+                        }
+
+                        bitmapEncoder = new PngBitmapEncoder();
+                        bitmapEncoder.Frames.Clear(); ;
+                        bitmapEncoder.Frames.Add(BitmapFrame.Create(data.depthLeftBitmapData.SIBIBitmapResize(120, 120)));
+                        path = Path.Combine(fullFilePath, folderName + "-LeftDepth-" + bitmapNumber + ".png");
+                        using (FileStream fs = new FileStream(path, FileMode.Create))
+                        {
+                            bitmapEncoder.Save(fs);
+                        }
+
+                        bitmapEncoder = new PngBitmapEncoder();
+                        bitmapEncoder.Frames.Clear();
+                        bitmapEncoder.Frames.Add(BitmapFrame.Create(data.depthRightBitmapData.SIBIBitmapResize(120, 120)));
+                        path = Path.Combine(fullFilePath, folderName + "-RightDepth-" + bitmapNumber + ".png");
+                        using (FileStream fs = new FileStream(path, FileMode.Create))
+                        {
+                            bitmapEncoder.Save(fs);
+                        }
+                    }
+                    catch (IOException e) { Console.WriteLine(e.Message); }
+                    #endregion
+                }
 
                 bitmapNumber++;
+                offset++;
+                dataIndex += skip;
             }
 
+            StringBuilder upperStringBuilder = new StringBuilder();
+            StringBuilder headStringBuilder = new StringBuilder();
+            
             headStringBuilder.AppendLine(String.Join(DELIMITER, headElbowLeftYXs.ToArray()));
             headStringBuilder.AppendLine(String.Join(DELIMITER, headElbowLeftZXs.ToArray()));
             headStringBuilder.AppendLine(String.Join(DELIMITER, headHandLeftYXs.ToArray()));
@@ -327,6 +436,32 @@ namespace SIBI_Kinect
 
             File.AppendAllText(upperPointFilePath, upperStringBuilder.ToString());
             File.AppendAllText(headPointFilePath, headStringBuilder.ToString());
+
+            #region Added 17 Feb 2014
+            upperStringBuilder = new StringBuilder();
+            headStringBuilder = new StringBuilder();
+
+            headStringBuilder.AppendLine(String.Join(DELIMITER, headElbowLeftYXsFull.ToArray()));
+            headStringBuilder.AppendLine(String.Join(DELIMITER, headElbowLeftZXsFull.ToArray()));
+            headStringBuilder.AppendLine(String.Join(DELIMITER, headHandLeftYXsFull.ToArray()));
+            headStringBuilder.AppendLine(String.Join(DELIMITER, headHandLeftZXsFull.ToArray()));
+            headStringBuilder.AppendLine(String.Join(DELIMITER, headElbowRightYXsFull.ToArray()));
+            headStringBuilder.AppendLine(String.Join(DELIMITER, headElbowRightZXsFull.ToArray()));
+            headStringBuilder.AppendLine(String.Join(DELIMITER, headHandRightYXsFull.ToArray()));
+            headStringBuilder.AppendLine(String.Join(DELIMITER, headHandRightZXsFull.ToArray()));
+
+            upperStringBuilder.AppendLine(String.Join(DELIMITER, shoulderElbowLeftYXsFull.ToArray()));
+            upperStringBuilder.AppendLine(String.Join(DELIMITER, shoulderElbowLeftZXsFull.ToArray()));
+            upperStringBuilder.AppendLine(String.Join(DELIMITER, elbowHandLeftYXsFull.ToArray()));
+            upperStringBuilder.AppendLine(String.Join(DELIMITER, elbowHandLeftZXsFull.ToArray()));
+            upperStringBuilder.AppendLine(String.Join(DELIMITER, shoulderElbowRightYXsFull.ToArray()));
+            upperStringBuilder.AppendLine(String.Join(DELIMITER, shoulderElbowRightZXsFull.ToArray()));
+            upperStringBuilder.AppendLine(String.Join(DELIMITER, elbowHandRightYXsFull.ToArray()));
+            upperStringBuilder.AppendLine(String.Join(DELIMITER, elbowHandRightZXsFull.ToArray()));
+
+            File.AppendAllText(fullUpperPointFilePath, upperStringBuilder.ToString());
+            File.AppendAllText(fullHeadPointFilePath, headStringBuilder.ToString());
+            #endregion
         }
 
         public void saveOneImageToFile(string folderName, string fileName, WriteableBitmap wbitmap)
